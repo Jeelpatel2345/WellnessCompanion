@@ -1,0 +1,81 @@
+<Window x:Class="WellnessCompanion.Windows.WaterVerification"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Hydration Check"
+        Width="900"
+        Height="650"
+        MinWidth="760"
+        MinHeight="560"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="#090D14">
+    <Grid Margin="32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Hydration Check"
+                       FontSize="32"
+                       FontWeight="Bold"
+                       Foreground="White"/>
+            <TextBlock x:Name="AttemptText"
+                       Text="Verification"
+                       FontSize="14"
+                       Foreground="#64748B"
+                       Margin="0,6,0,0"/>
+        </StackPanel>
+
+        <Border Grid.Row="1"
+                CornerRadius="24"
+                Background="#111827"
+                BorderBrush="#263244"
+                BorderThickness="1">
+            <Grid>
+                <Image x:Name="CameraImage" Stretch="Uniform"/>
+
+                <Border HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0,20,0,0"
+                        Padding="20,10"
+                        CornerRadius="20"
+                        Background="#E0182433">
+                    <TextBlock x:Name="StatusText"
+                               Text="Starting camera..."
+                               Foreground="White"
+                               FontSize="16"
+                               FontWeight="SemiBold"/>
+                </Border>
+
+                <TextBlock x:Name="CameraErrorText"
+                           Visibility="Collapsed"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           MaxWidth="560"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Foreground="#CBD5E1"
+                           FontSize="16"/>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,20,0,0">
+            <Button x:Name="ConfirmButton"
+                    Content="I drank water"
+                    Click="Confirm_Click"
+                    Width="170"
+                    Height="48"
+                    Margin="0,0,12,0"
+                    IsEnabled="False"/>
+            <Button Content="Skip this check"
+                    Click="Skip_Click"
+                    Width="140"
+                    Height="48"/>
+        </StackPanel>
+    </Grid>
+</Window>

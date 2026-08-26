@@ -1,0 +1,222 @@
+<Window x:Class="WellnessCompanion.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Wellness Companion"
+        Icon="/WellnessCompanion;component/Assets/logo.ico"
+        Width="900"
+        Height="720"
+        MinWidth="760"
+        MinHeight="620"
+        Background="#080C14"
+        Foreground="White"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#0F172A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#334155"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#1E293B"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#334155"/>
+            <Setter Property="Padding" Value="18,11"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#E2E8F0"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </Window.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="36">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0" Margin="0,0,0,28">
+                <StackPanel>
+                    <TextBlock Text="Wellness Companion"
+                               FontSize="36"
+                               FontWeight="Bold"/>
+                    <TextBlock Text="A quiet work companion that reminds you to hydrate, eat and step away from the screen."
+                               Foreground="#94A3B8"
+                               FontSize="15"
+                               Margin="0,8,0,0"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <Border HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Background="#102A20"
+                        BorderBrush="#1F6F4D"
+                        BorderThickness="1"
+                        CornerRadius="18"
+                        Padding="14,8">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8" Height="8" Fill="#4ADE80" Margin="0,0,8,0"/>
+                        <TextBlock Text="Running in background"
+                                   Foreground="#86EFAC"
+                                   FontSize="13"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Reminder settings -->
+            <Border Grid.Row="1"
+                    Background="#111827"
+                    BorderBrush="#1E293B"
+                    BorderThickness="1"
+                    CornerRadius="22"
+                    Padding="24"
+                    Margin="0,0,0,18">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                        <TextBlock Text="Reminder schedule" FontSize="21" FontWeight="SemiBold"/>
+                        <TextBlock Text="Intervals are based on active keyboard/mouse use. Idle time is not counted."
+                                   Foreground="#64748B"
+                                   Margin="0,5,0,0"/>
+                    </StackPanel>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="18"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="#0B1220" CornerRadius="16" Padding="18">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="44"/>
+                                    <RowDefinition Height="44"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="💧  Hydration" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                                <Grid Grid.Row="1" Margin="0,0,0,6">
+                                    <TextBlock Text="Every (minutes)" VerticalAlignment="Center" Foreground="#CBD5E1"/>
+                                    <TextBox x:Name="WaterIntervalBox" Width="120" HorizontalAlignment="Right"/>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <TextBlock Text="Reminder length (seconds)" VerticalAlignment="Center" Foreground="#CBD5E1"/>
+                                    <TextBox x:Name="WaterDurationBox" Width="120" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="2" Background="#0B1220" CornerRadius="16" Padding="18">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="44"/>
+                                    <RowDefinition Height="44"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="🍱  Food break" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                                <Grid Grid.Row="1" Margin="0,0,0,6">
+                                    <TextBlock Text="Every (minutes)" VerticalAlignment="Center" Foreground="#CBD5E1"/>
+                                    <TextBox x:Name="FoodIntervalBox" Width="120" HorizontalAlignment="Right"/>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <TextBlock Text="Break length (minutes)" VerticalAlignment="Center" Foreground="#CBD5E1"/>
+                                    <TextBox x:Name="FoodDurationBox" Width="120" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- Behavior -->
+            <Border Grid.Row="2"
+                    Background="#111827"
+                    BorderBrush="#1E293B"
+                    BorderThickness="1"
+                    CornerRadius="22"
+                    Padding="24"
+                    Margin="0,0,0,18">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="280"/>
+                    </Grid.ColumnDefinitions>
+<StackPanel>
+    <TextBlock Text="Behavior"
+               FontSize="21"
+               FontWeight="SemiBold"/>
+
+    <Grid Margin="0,18,0,12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="140"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            <TextBlock Text="Idle threshold"
+                       Foreground="#CBD5E1"
+                       FontSize="14"/>
+            <TextBlock Text="Pause reminders when you are inactive for this long."
+                       Foreground="#64748B"
+                       FontSize="12"
+                       Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <TextBox x:Name="IdleThresholdBox"
+                 Grid.Column="1"
+                 Height="40"
+                 VerticalAlignment="Center"
+                 TextAlignment="Center"/>
+    </Grid>
+
+    <CheckBox x:Name="SoundBox"
+              Content="Play a gentle reminder sound"
+              Margin="0,8,0,12"/>
+
+    <CheckBox x:Name="StartupBox"
+              Content="Start automatically with Windows"/>
+</StackPanel>
+
+                    <Border Grid.Column="1" Background="#0B1220" CornerRadius="16" Padding="16">
+                        <StackPanel>
+                            <TextBlock Text="Hydration verification" FontWeight="SemiBold" FontSize="15"/>
+                            <TextBlock Text="After the water reminder ends, the camera check opens after 30 seconds. If verification fails, the next check starts after 15 seconds (up to 3 attempts)."
+                                       Foreground="#94A3B8"
+                                       TextWrapping="Wrap"
+                                       Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Footer -->
+            <StackPanel Grid.Row="3"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Content="Minimize to Tray"
+                        Width="150"
+                        Margin="0,0,10,0"
+                        Click="Minimize_Click"/>
+                <Button Content="Save Settings"
+                        Width="150"
+                        Background="#2563EB"
+                        BorderBrush="#3B82F6"
+                        Click="Save_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

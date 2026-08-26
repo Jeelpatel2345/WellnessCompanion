@@ -1,0 +1,9 @@
+<Application x:Class="WellnessCompanion.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <SolidColorBrush x:Key="PanelBrush" Color="#151923"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#60A5FA"/>
+    </Application.Resources>
+</Application>
