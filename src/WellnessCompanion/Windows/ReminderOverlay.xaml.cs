@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using WellnessCompanion.Services;
 
@@ -26,6 +27,9 @@ public partial class ReminderOverlay : Window
         }
         else
         {
+            WaterVisual.Visibility = Visibility.Collapsed;
+            EmojiText.Text = "Food break";
+            EmojiText.Visibility = Visibility.Visible;
             EmojiText.Text = "🍱";
             TitleText.Text = "TIME FOR A FOOD BREAK";
             SubtitleText.Text = "Step away from the screen and take a proper break.";
@@ -42,6 +46,11 @@ public partial class ReminderOverlay : Window
         {
             Activate();
             Topmost = true;
+
+            if (type == ReminderType.Water)
+            {
+                ((Storyboard)FindResource("WaterPulse")).Begin();
+            }
         };
     }
 

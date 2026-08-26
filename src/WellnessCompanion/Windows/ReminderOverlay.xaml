@@ -8,11 +8,18 @@
         ShowInTaskbar="False"
         ResizeMode="NoResize"
         Width="560"
-        Height="360"
+        Height="430"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Storyboard x:Key="WaterPulse" RepeatBehavior="Forever" AutoReverse="True">
+            <DoubleAnimation Storyboard.TargetName="WaterDrop" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" From="1" To="1.09" Duration="0:0:1.15" />
+            <DoubleAnimation Storyboard.TargetName="WaterDrop" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" From="1" To="1.09" Duration="0:0:1.15" />
+            <DoubleAnimation Storyboard.TargetName="DropGlow" Storyboard.TargetProperty="Opacity" From="0.25" To="0.8" Duration="0:0:1.15" />
+        </Storyboard>
+    </Window.Resources>
     <Border CornerRadius="28"
-            Background="#F00B1220"
-            BorderBrush="#334155"
+            Background="#F0091426"
+            BorderBrush="#38577A"
             BorderThickness="1"
             Padding="36">
         <Grid>
@@ -22,14 +29,18 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="EmojiText"
-                       FontSize="64"
-                       HorizontalAlignment="Center"
-                       TextAlignment="Center"/>
+            <Grid x:Name="WaterVisual" Width="112" Height="112" HorizontalAlignment="Center">
+                <Ellipse x:Name="DropGlow" Width="104" Height="104" Fill="#2563EB" Opacity="0.32" />
+                <Path x:Name="WaterDrop" Data="M56,8 C56,8 23,44 23,67 A33,33 0 1 0 89,67 C89,44 56,8 56,8 Z" Stretch="Uniform" Fill="#38BDF8" Stroke="#BAE6FD" StrokeThickness="2" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform><ScaleTransform /></Path.RenderTransform>
+                </Path>
+                <Path Data="M41,64 C46,53 54,47 67,43 C61,51 58,59 58,67 C58,75 61,82 66,88 C53,85 44,77 41,64 Z" Fill="#E0F2FE" Opacity="0.72" />
+            </Grid>
+            <TextBlock x:Name="EmojiText" FontSize="64" HorizontalAlignment="Center" TextAlignment="Center" Visibility="Collapsed"/>
 
             <StackPanel Grid.Row="1" VerticalAlignment="Center">
                 <TextBlock x:Name="TitleText"
-                           Foreground="White"
+                           Foreground="#7DD3FC"
                            FontSize="30"
                            FontWeight="Bold"
                            TextAlignment="Center"/>
