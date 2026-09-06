@@ -31,8 +31,20 @@ public static class AssetService
         if (input == null)
             throw new FileNotFoundException("The bundled face detection model could not be opened.");
 
-        using var output = File.Create(path);
-        input.CopyTo(output);
+        // Avoid leaving a partially extracted model if the process stops.
+        var temporaryPath = path + ".tmp";
+        try
+        {
+            using (var output = File.Create(temporaryPath))
+                input.CopyTo(output);
+
+            File.Move(temporaryPath, path, overwrite: true);
+        }
+        finally
+        {
+            if (File.Exists(temporaryPath))
+                File.Delete(temporaryPath);
+        }
 
         return path;
     }

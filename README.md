@@ -107,3 +107,24 @@ WellnessCompanion/
 5. Daily hydration and break statistics.
 6. Installer with Start Menu/Desktop shortcuts.
 7. Versioned GitHub releases and automatic updates.
+
+## Download the app
+
+Download the newest `WellnessCompanion-win-x64.zip` from the repository's
+[Releases page](../../releases). Extract it anywhere, then run
+`WellnessCompanion.exe`. The download is self-contained and does not require a
+.NET installation.
+
+### Maintainer: publish a release
+
+1. Update the version in `src/WellnessCompanion/WellnessCompanion.csproj`.
+2. Commit and push the change to `main`.
+3. Create and push a matching tag, for example `v1.0.0`:
+
+   ```powershell
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+
+GitHub Actions builds the self-contained Windows app, creates
+`WellnessCompanion-win-x64.zip`, and publishes it on the GitHub Releases page.
