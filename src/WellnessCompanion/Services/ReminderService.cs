@@ -12,6 +12,8 @@ public sealed class ReminderService
     private TimeSpan _sinceWater = TimeSpan.Zero;
     private TimeSpan _sinceFood = TimeSpan.Zero;
     private bool _reminderOpen;
+    private bool _enabled;
+    private int _stateVersion;
 
     public ReminderService(AppSettings settings)
     {
@@ -23,11 +25,22 @@ public sealed class ReminderService
         };
 
         _timer.Tick += OnTick;
+        _enabled = _settings.RemindersEnabled;
     }
 
     public void Start() => _timer.Start();
 
     public void Stop() => _timer.Stop();
+
+    public void SetEnabled(bool enabled)
+    {
+        if (_enabled == enabled)
+            return;
+
+        _enabled = enabled;
+        _stateVersion++;
+        ResetCounters();
+    }
 
     public void ResetCounters()
     {
@@ -37,7 +50,7 @@ public sealed class ReminderService
 
     private void OnTick(object? sender, EventArgs e)
     {
-        if (_reminderOpen)
+        if (!_enabled || _reminderOpen)
             return;
 
         var idle = IdleService.GetIdleTime();
@@ -70,6 +83,7 @@ public sealed class ReminderService
     private void ShowWater()
     {
         _reminderOpen = true;
+        var stateVersion = _stateVersion;
         PlayReminderSound();
 
         var overlay = new ReminderOverlay(
@@ -83,7 +97,8 @@ public sealed class ReminderService
             try
             {
                 await Task.Delay(TimeSpan.FromSeconds(_settings.WaterVerificationDelaySeconds));
-                await VerifyWaterAsync();
+                if (_enabled && stateVersion == _stateVersion)
+                    await VerifyWaterAsync(stateVersion);
             }
             finally
             {
@@ -94,10 +109,13 @@ public sealed class ReminderService
         overlay.Show();
     }
 
-    private async Task VerifyWaterAsync()
+    private async Task VerifyWaterAsync(int stateVersion)
     {
         for (var attempt = 1; attempt <= _settings.MaxWaterVerificationAttempts; attempt++)
         {
+            if (!_enabled || stateVersion != _stateVersion)
+                return;
+
             var verification = new WaterVerification(attempt, _settings.MaxWaterVerificationAttempts);
             verification.Owner = System.Windows.Application.Current.MainWindow;
             verification.ShowDialog();

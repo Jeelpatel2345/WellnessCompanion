@@ -7,12 +7,14 @@ namespace WellnessCompanion;
 public partial class MainWindow : Window
 {
     private readonly AppSettings _settings;
+    private readonly Action<bool> _setRemindersEnabled;
     private bool _allowClose;
 
-    public MainWindow(AppSettings settings)
+    public MainWindow(AppSettings settings, Action<bool> setRemindersEnabled)
     {
         InitializeComponent();
         _settings = settings;
+        _setRemindersEnabled = setRemindersEnabled;
         LoadSettings();
     }
 
@@ -25,6 +27,8 @@ public partial class MainWindow : Window
         IdleThresholdBox.Text = _settings.IdleThresholdSeconds.ToString();
         SoundBox.IsChecked = _settings.SoundEnabled;
         StartupBox.IsChecked = _settings.StartWithWindows;
+        RemindersEnabledBox.IsChecked = _settings.RemindersEnabled;
+        UpdateReminderStatus(_settings.RemindersEnabled);
     }
 
     private void Save_Click(object sender, RoutedEventArgs e)
@@ -61,9 +65,11 @@ public partial class MainWindow : Window
         _settings.IdleThresholdSeconds = idleThreshold;
         _settings.SoundEnabled = SoundBox.IsChecked == true;
         _settings.StartWithWindows = StartupBox.IsChecked == true;
+        _settings.RemindersEnabled = RemindersEnabledBox.IsChecked == true;
 
         SettingsService.Save(_settings);
         StartupService.SetEnabled(_settings.StartWithWindows);
+        _setRemindersEnabled(_settings.RemindersEnabled);
 
         System.Windows.MessageBox.Show(
             "Settings saved. New reminder intervals are active immediately.",
@@ -80,6 +86,18 @@ public partial class MainWindow : Window
         Activate();
         Topmost = true;
         Topmost = false;
+    }
+
+    public void SetRemindersEnabledFromTray(bool enabled)
+    {
+        _settings.RemindersEnabled = enabled;
+        RemindersEnabledBox.IsChecked = enabled;
+        UpdateReminderStatus(enabled);
+    }
+
+    private void UpdateReminderStatus(bool enabled)
+    {
+        ReminderStatusText.Text = enabled ? "Reminders active" : "Reminders paused";
     }
 
     public void ExitApplication()

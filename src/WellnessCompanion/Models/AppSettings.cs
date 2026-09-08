@@ -15,4 +15,7 @@ public sealed class AppSettings
 
     public bool StartWithWindows { get; set; } = false;
     public bool SoundEnabled { get; set; } = true;
+    // This is separate from whether the settings window is visible. A hidden app
+    // can continue reminding, while a paused app cannot show new reminders.
+    public bool RemindersEnabled { get; set; } = true;
 }

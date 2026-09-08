@@ -66,7 +66,8 @@
                         Padding="14,8">
                     <StackPanel Orientation="Horizontal">
                         <Ellipse Width="8" Height="8" Fill="#4ADE80" Margin="0,0,8,0"/>
-                        <TextBlock Text="Running in background"
+                        <TextBlock x:Name="ReminderStatusText"
+                                   Text="Reminders active"
                                    Foreground="#86EFAC"
                                    FontSize="13"/>
                     </StackPanel>
@@ -188,7 +189,16 @@
               Margin="0,8,0,12"/>
 
     <CheckBox x:Name="StartupBox"
-              Content="Start automatically with Windows"/>
+              Content="Start automatically with Windows"
+              Margin="0,0,0,12"/>
+
+    <CheckBox x:Name="RemindersEnabledBox"
+              Content="Enable reminders while the app is in the system tray"/>
+    <TextBlock Text="Closing this window only hides it. Use Exit in the tray menu to stop the app completely."
+               Foreground="#64748B"
+               FontSize="12"
+               Margin="0,6,0,0"
+               TextWrapping="Wrap"/>
 </StackPanel>
 
                     <Border Grid.Column="1" Background="#0B1220" CornerRadius="16" Padding="16">

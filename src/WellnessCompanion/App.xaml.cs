@@ -27,12 +27,25 @@ public partial class App : System.Windows.Application
         var settings = SettingsService.Load();
         StartupService.SetEnabled(settings.StartWithWindows);
 
-        var mainWindow = new MainWindow(settings);
+        MainWindow? mainWindow = null;
+
+        void SetRemindersEnabled(bool enabled)
+        {
+            settings.RemindersEnabled = enabled;
+            SettingsService.Save(settings);
+            _reminderService?.SetEnabled(enabled);
+            _trayService?.UpdateRemindersEnabled(enabled);
+            mainWindow?.SetRemindersEnabledFromTray(enabled);
+        }
+
+        mainWindow = new MainWindow(settings, SetRemindersEnabled);
         MainWindow = mainWindow;
 
         _trayService = new TrayService(
             showSettings: () => Dispatcher.Invoke(mainWindow.ShowFromTray),
-            exit: () => Dispatcher.Invoke(mainWindow.ExitApplication));
+            exit: () => Dispatcher.Invoke(mainWindow.ExitApplication),
+            setRemindersEnabled: enabled => Dispatcher.Invoke(() => SetRemindersEnabled(enabled)),
+            remindersEnabled: settings.RemindersEnabled);
 
         _reminderService = new ReminderService(settings);
         _reminderService.Start();

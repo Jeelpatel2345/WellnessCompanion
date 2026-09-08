@@ -15,6 +15,7 @@ A Windows desktop wellness companion for people who spend long periods working a
 - 15-second retry delay with up to 3 verification attempts by default.
 - Local JSON settings in `%LOCALAPPDATA%\\WellnessCompanion\\settings.json`.
 - System tray operation with a custom application icon.
+- Clear reminder state controls: closing the settings window minimizes to the system tray; use **Pause reminders** to stop reminders or **Exit** to close the app completely.
 - Start-with-Windows support through the current user's Run registry key.
 - Single-instance protection.
 - Reminder sound option.
